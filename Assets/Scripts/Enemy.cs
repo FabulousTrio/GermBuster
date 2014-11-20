@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-	public int health;
+	public int Health = 1;
 	public float speed = 1;
 	float step;
-	SpriteRenderer sprites;
+	public SpriteRenderer sprites;
 	private Transform target;
 	public int id = 1;
 
@@ -14,12 +14,27 @@ public class Enemy : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-	
+		//target = GameObject.Find ("player").transform;
+		//StartCoroutine(MovetoPlayer());
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		movement ();
+		
+		if(Health == 0)
+		{
+			Debug.Log("Died");
+		}
+	}
+	
+	IEnumerator MovetoPlayer()
+	{
+		while(transform.position != target.position)
+		{
+			transform.position = Vector3.MoveTowards(transform.position, target.position, speed*Time.deltaTime); //moves towards the target
+			yield return 0;
+		}
 	}
 	
 	void movement() //follow
@@ -33,4 +48,10 @@ public class Enemy : MonoBehaviour {
 	{
 		
 	}
+	
+	/*
+		Changelog 11/19
+		*Commented out the movement function and made the enemy move towards the player using a Coroutine function.
+		*Difference now is that once the enemy reaches the player's position he stops moving.
+	*/
 }
