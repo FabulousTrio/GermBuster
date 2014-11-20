@@ -5,20 +5,11 @@ public class Player : MonoBehaviour
 {
 
 	int health = 3;
-	float speed = 2f;
+	float speed = 3f;
 	SpriteRenderer sprites;
-	
-	bool Sick = false;
 	enum Disease{Headache, RunnyNose, Fever, StuffyNose};
-	
+	public bool Ill = false; //boolean for determining if player is already sick
 
-	
-	
-	/*if(Sick)
-	{
-		
-	}*/
-	
 	// Use this for initialization
 	void Start () {
 	
@@ -53,11 +44,31 @@ public class Player : MonoBehaviour
 		{
 			transform.position += Vector3.right * speed * Time.deltaTime;
 		}		
-		
+
+
 	}
-	
-	void attack()
+
+	IEnumerator Heal()
 	{
-		
+		for(float timer = 10; timer >= 0; timer-= Time.deltaTime) //After x seconds
+		yield return 0;
+		speed = 2f; //set speed to two
+		Debug.Log("You feel better.");
 	}
+
+	public void sick(int disease)
+	{
+		if(disease == 1) /*If the enemy id is 1 do this*/
+		{
+			speed = 0.5f;
+		}
+		/*Here we will add the other effects of other diseases at a a later time*/
+		else if(disease == 2){} //add here later
+		else if(disease == 3){} //add here later
+		else if(disease == 4){} //add here later
+		else{}
+
+		StartCoroutine(Heal()); //Start a countdown so he can get better
+	}
+
 }
