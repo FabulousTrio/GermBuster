@@ -28,10 +28,11 @@ public class playerCollision : MonoBehaviour {
 			{
 				me.sick(germ.id); //Call the player's sick method and set the disease to the germ's id
 				me.Ill = true; //make the player ill
+
 			}
 
 		 	Destroy(other.gameObject); //kill the germ
-
+			me.Health--;
 
 		}
 	}

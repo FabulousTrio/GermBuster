@@ -4,21 +4,27 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 
-	int health = 3;
+	public int Health = 3;
 	float speed = 3f;
 	SpriteRenderer sprites;
 	enum Disease{Headache, RunnyNose, Fever, StuffyNose};
 	public bool Ill = false; //boolean for determining if player is already sick
+	bool facingRight = true; //boolean for determining if player is facing right
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		movement();
+
+		if(Health < 1)
+		{
+			Debug.Log("You Lose!");
+		}
 	}
 	
 	void movement()
@@ -38,14 +44,33 @@ public class Player : MonoBehaviour
 		if(Input.GetKey("a") || Input.GetKey("left")) /*Movement in the left direction*/
 		{
 			transform.position += Vector3.left * speed * Time.deltaTime;
+
+			if(facingRight) //if player is also facing right
+			{
+				flip(); //flip x axis
+			}
 		}
 		
 		if(Input.GetKey("d") || Input.GetKey("right")) /*Movement in the right direction*/
 		{
 			transform.position += Vector3.right * speed * Time.deltaTime;
+
+			if(!facingRight) //if player is facing left
+			{
+				flip(); //flip x axis
+			}
 		}		
 
 
+	}
+
+	void flip()
+	{
+		facingRight = !facingRight;
+
+		Vector3 theScale = transform.localScale;
+		theScale.x*= -1;
+		transform.localScale = theScale;
 	}
 
 	IEnumerator Heal()
