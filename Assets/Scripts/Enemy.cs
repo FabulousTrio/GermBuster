@@ -20,8 +20,9 @@ public class Enemy : MonoBehaviour {
 	void Update () {
 		movement ();
 		
-		if(Health == 0)
+		if(Health < 1)
 		{
+			Destroy(gameObject);
 			Debug.Log("Died");
 		}
 	}

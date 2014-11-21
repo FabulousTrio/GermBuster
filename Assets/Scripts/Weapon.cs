@@ -4,12 +4,17 @@ using System.Collections;
 public class Weapon : MonoBehaviour {
 
 	public float fireRate;
-	public float Damage = 1f;
+	public int Damage = 1;
 	public LayerMask whatToHit; //This is a variable that let's us target certain layers (We are targeting the everything except Player with this)
-	
+	SpriteRenderer sprites;
+
+	float timetoSpawnEffect = 0; //for bullet displau
+	public float effectSpawnRate = 10;
+
 	float timeToFire = 0f;
 	Transform firePoint;
-	
+
+	public Transform BulletTrailPrefab;
 	// Use this for initialization
 	void Awake () {
 		firePoint = transform.FindChild("FirePoint"); //Instead of finding gameObject let's just find the child of Player which is the GameObject FirePoint (aka where the bullet will coming out of)
@@ -52,6 +57,14 @@ public class Weapon : MonoBehaviour {
 		Vector2 firePointPosition = new Vector2(firePoint.position.x, firePoint.position.y); //Let's get the position of our FirePoint GameObject
 		
 		RaycastHit2D hit = Physics2D.Raycast(firePointPosition, mousePosition-firePointPosition, 100, whatToHit); 
+		//BulletTrailPrefab.transform.Translate(Vector3.MoveTowards(firePointPosition, (mousePosition - firePointPosition), 100f) * Time.deltaTime * 220);
+
+		if(Time.time >= timetoSpawnEffect)
+		{
+			//effect();
+			timetoSpawnEffect = Time.time + 1/effectSpawnRate;
+		}
+
 		/*
 			Takes in certain parameters
 			*First is the starting position, which we are setting to the position of FirePoint
@@ -64,11 +77,20 @@ public class Weapon : MonoBehaviour {
 		
 		if(hit.collider !=null)
 		{
-			Debug.DrawLine(firePointPosition, hit.point, Color.red); //test to see the distance our bullet travelled
+			//Debug.DrawLine(firePointPosition, hit.point, Color.red); //test to see the distance our bullet travelled
 			Debug.Log("We hit " + hit.collider.name + " and did " + Damage + " damage."); 
-						
-			Destroy(hit.collider.gameObject);//Destroy whatever we touched
+
+			Enemy germ = hit.collider.GetComponent<Enemy>();
+
+			germ.Health -= Damage;
+			//Destroy(hit.collider.gameObject);//Destroy whatever we touched
 		}
 		
+	}
+
+	public void effect()
+	{
+		Instantiate (BulletTrailPrefab, firePoint.position, firePoint.rotation);
+
 	}
 }
