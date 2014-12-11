@@ -43,6 +43,7 @@ public class EnemySpawn : MonoBehaviour {
 		GameObject enemy = Instantiate (Enemy, pos, Quaternion.identity) as GameObject;
 		GameObject enemy2 = Instantiate (Enemy2, pos, Quaternion.identity) as GameObject;
 
+		enemy2.GetComponent<Enemy>().Health = 2;
 		enemy2.GetComponent<Enemy>().id = 2;
 		enemy2.GetComponent<Enemy>().speed = 4;
 

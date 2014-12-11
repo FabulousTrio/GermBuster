@@ -108,8 +108,8 @@ public class Player : MonoBehaviour
 		}
 		/*Here we will add the other effects of other diseases at a a later time*/
 		else if(disease == 2){
-			//speed = 5f;
-			handsanitizer.canShoot = false; //Can't shoot
+			speed = 5f;
+			//handsanitizer.canShoot = false; //Can't shoot
 
 		} //add here later
 		else if(disease == 3){ speed = 0;} //add here later
