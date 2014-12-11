@@ -7,6 +7,7 @@ public class EnemySpawn : MonoBehaviour {
 	public GameObject[] spawnPosition;
 	private List<GameObject> enemies;
 	public GameObject Enemy;
+	public GameObject Enemy2;
 	public float spawnDelay =2f;
 
 	// Use this for initialization
@@ -40,8 +41,13 @@ public class EnemySpawn : MonoBehaviour {
 		Vector3 pos = spawnPosition [index].transform.position;
 		
 		GameObject enemy = Instantiate (Enemy, pos, Quaternion.identity) as GameObject;
-		enemies.Add (enemy);
+		GameObject enemy2 = Instantiate (Enemy2, pos, Quaternion.identity) as GameObject;
 
+		enemy2.GetComponent<Enemy>().id = 2;
+		enemy2.GetComponent<Enemy>().speed = 4;
+
+		enemies.Add (enemy);
+		enemies.Add (enemy2);
 		}
 
 

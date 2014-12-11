@@ -1,9 +1,6 @@
 fileFormatVersion: 2
 guid: 3d48a8f71b9bea941aa1ecf270d1c2b9
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Kid
-    21300002: Arm
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
